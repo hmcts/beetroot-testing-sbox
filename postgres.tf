@@ -74,7 +74,7 @@ module "postgresql" {
   
   enable_read_only_group_access = false
   enable_db_report_privileges = true
-  force_db_report_privileges_trigger = "1"
+  force_db_report_privileges_trigger = "2"
   
   kv_name = "beetroot-sbox-kv"
   kv_subscription = "DTS-SHAREDSERVICES-SBOX"
