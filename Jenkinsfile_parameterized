@@ -1,0 +1,13 @@
+#!groovy
+import groovy.json.JsonSlurper
+
+@Library('Infrastructure') _
+
+properties([
+    parameters([
+        string(name: 'PRODUCT_NAME', defaultValue: 'sds-platform', description: '')
+    ])
+])
+
+withParameterizedInfraPipeline(params.PRODUCT_NAME, 'sbox', 'sbox') {
+}
