@@ -1,12 +1,12 @@
 resource "azurerm_resource_group" "sds_platform_resource_group" {
-  name     = format("%s-%s-test-rg", var.product, var.env)
+  name     = format("%s-%s-rg", var.product, var.env)
   location = "Uk South"
   tags = module.common_tags.common_tags
 }
 
 module "key_vault" {
   source              = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
-  name                = "sds-platform-sbox-test2" // Max 24 characters
+  name                = "beetroot-sbox-kv" // Max 24 characters
   product             = var.product
   env                 = var.env
   object_id           = var.jenkins_AAD_objectId
@@ -16,7 +16,7 @@ module "key_vault" {
 }
 
 resource "azurerm_key_vault_secret" "POSTGRES-USER" {
-  name         = "sds-platform-testing-POSTGRES-USER"
+  name         = "beetroot-testing-POSTGRES-USER"
   value        = module.postgresql.username
   key_vault_id = module.key_vault.key_vault_id
   
@@ -27,7 +27,7 @@ resource "azurerm_key_vault_secret" "POSTGRES-USER" {
 }
 
 resource "azurerm_key_vault_secret" "POSTGRES-PASS" {
-  name         = "sds-platform-testing-POSTGRES-PASS"
+  name         = "beetroot-testing-POSTGRES-PASS"
   value        = module.postgresql.password
   key_vault_id = module.key_vault.key_vault_id
 
@@ -78,7 +78,7 @@ module "postgresql" {
   enable_db_report_privileges = false
   force_db_report_privileges_trigger = "1"
   
-  kv_name = "sds-platform-sbox-test2"
+  kv_name = "beetroot-sbox-kv"
   kv_subscription = "DTS-SHAREDSERVICES-SBOX"
 
   common_tags = module.common_tags.common_tags
@@ -92,7 +92,7 @@ module "postgresql" {
 module "common_tags" {
   source      = "git@github.com:hmcts/terraform-module-common-tags.git?ref=master"
   environment = "sandbox"
-  product     = "sds-platform"
+  product     = "beetroot"
   builtFrom   = "Manual"
   expiresAfter = "2025-05-30"
 }
