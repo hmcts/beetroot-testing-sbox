@@ -72,7 +72,7 @@ module "postgresql" {
   pgsql_version = "16"
 
   # Changing the value of the trigger_password_reset variable will trigger Terraform to rotate the password of the pgadmin user.
-  trigger_password_reset = "1"
+  trigger_password_reset = "0"
   
   enable_read_only_group_access = false
   enable_db_report_privileges = false
